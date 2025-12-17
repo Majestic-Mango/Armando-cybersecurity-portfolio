@@ -43,3 +43,28 @@ directories were listed during enumeration. This indicates that the service is
 either restricted to specific hosts or not actively exporting filesystem paths.
 While no immediate filesystem exposure was identified, the presence of an
 unnecessary network service increases the overall attack surface.
+
+## Attack Surface Summary
+
+The assessed host exposes multiple legacy network services commonly associated
+with insecure default configurations and increased attack surface in internal
+network environments.
+
+Enumeration identified unauthenticated access to both SMB and FTP services.
+The SMB service permitted anonymous authentication and exposed multiple network
+shares, indicating weak access controls and potential for information disclosure
+or lateral movement. The FTP service, identified as vsFTPd version 2.3.4, also
+permitted anonymous access, allowing unauthenticated users to enumerate
+filesystem structure and potentially access sensitive data.
+
+An NFS service was observed running on the target host; however, no exported
+directories were accessible during enumeration. While no immediate filesystem
+exposure was identified via NFS, the presence of an unnecessary network service
+contributes to overall attack surface and may present future risk if improperly
+configured.
+
+Collectively, these findings indicate a system with multiple exposed legacy
+services, weak authentication controls, and an elevated risk profile within an
+internal network. Although no exploitation was performed, the enumeration
+results demonstrate several viable entry points that could be leveraged by an
+attacker for further compromise under real-world conditions.
