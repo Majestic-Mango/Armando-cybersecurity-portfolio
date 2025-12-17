@@ -12,7 +12,8 @@ scope and accessibility within the internal network segment.
 Service and version enumeration revealed numerous legacy and insecure services,
 including FTP, SMB, RPC, remote shell services, database services, and remote
 desktop protocols. Several of these services are known to present high risk
-when improperly configured or running outdated versions.
+when improperly configured or running outdated versions. Enumeration activities
+were conducted in a non-intrusive manner without exploitation.
 
 ---
 
@@ -32,6 +33,8 @@ attackers with insight into system structure or sensitive data. Anonymous FTP
 access may also be abused as a staging point for further attacks within an
 internal network.
 
+---
+
 ### NFS Enumeration (Port 2049)
 
 An NFS service was identified as exposed on the target host. Enumeration was
@@ -43,6 +46,8 @@ directories were listed during enumeration. This indicates that the service is
 either restricted to specific hosts or not actively exporting filesystem paths.
 While no immediate filesystem exposure was identified, the presence of an
 unnecessary network service increases the overall attack surface.
+
+---
 
 ## Attack Surface Summary
 
