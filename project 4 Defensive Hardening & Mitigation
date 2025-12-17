@@ -35,3 +35,109 @@ The following mitigation principles guided remediation efforts:
 
 Mitigation actions were categorized into service-level hardening, network-level
 controls, and administrative safeguards to ensure layered defense.
+
+## Phase 3 – Secure Configuration & Hardening
+
+Following risk assessment and mitigation planning, secure configuration changes
+were identified to reduce the exposed attack surface and prevent recurrence of
+the identified vulnerabilities. No remediation actions were executed on the
+target system; this phase documents recommended controls consistent with
+enterprise security practices.
+
+---
+
+### FTP Hardening (vsFTPd – Port 21)
+
+The FTP service was identified as a critical risk due to anonymous access and
+a known remote command execution vulnerability in vsFTPd version 2.3.4.
+
+#### Recommended Controls
+- Disable FTP entirely if not operationally required
+- Replace FTP with secure alternatives such as SFTP or SCP
+- Enforce authenticated access and disable anonymous login
+- Restrict service access via host-based firewall rules
+- Ensure services are patched and maintained at supported versions
+
+#### Risk Reduction
+These controls eliminate unauthenticated access paths and remove a known
+exploitable service, significantly reducing the likelihood of remote compromise.
+
+---
+
+### SMB Hardening (Ports 139 / 445)
+
+SMB services permitted anonymous authentication and exposed multiple network
+shares, increasing the risk of information disclosure and lateral movement.
+
+#### Recommended Controls
+- Disable SMB if not required
+- Enforce authentication and disable anonymous access
+- Restrict share permissions using least-privilege principles
+- Limit SMB access to trusted subnets only
+- Upgrade legacy SMB implementations where applicable
+
+#### Risk Reduction
+Restricting SMB access prevents unauthenticated enumeration and reduces
+exposure to credential harvesting and internal movement techniques.
+
+---
+
+### NFS Hardening (Port 2049)
+
+Although no exported directories were identified, the presence of an exposed
+NFS service increased overall attack surface.
+
+#### Recommended Controls
+- Disable NFS if unused
+- Restrict exports to specific hosts using explicit access control
+- Apply read-only permissions where possible
+- Enforce firewall restrictions at the network layer
+
+#### Risk Reduction
+Removing or restricting NFS minimizes the risk of future filesystem exposure
+and unauthorized access if configuration changes occur.
+
+---
+
+### Network-Level Controls
+
+Multiple services were accessible across the internal network without
+segmentation or filtering.
+
+#### Recommended Controls
+- Implement host-based firewall rules to limit inbound services
+- Restrict administrative services to management networks
+- Monitor exposed services using intrusion detection or logging mechanisms
+
+#### Risk Reduction
+Network controls reduce attacker visibility and limit opportunities for service
+discovery and exploitation.
+
+---
+
+### Administrative Safeguards
+
+The system exhibited characteristics consistent with default or intentionally
+vulnerable configurations.
+
+#### Recommended Controls
+- Maintain accurate service inventories
+- Disable legacy or test services prior to production deployment
+- Perform routine vulnerability scanning and configuration audits
+- Apply security baselines such as CIS Benchmarks
+
+#### Risk Reduction
+Administrative controls ensure sustained security posture and prevent insecure
+configurations from persisting over time.
+
+---
+
+## Defensive Outcome Summary
+
+If implemented, the recommended hardening measures would significantly reduce
+the system’s attack surface by removing unauthenticated access paths, eliminating
+legacy services, and enforcing least-privilege access controls.
+
+These actions align with defense-in-depth principles and demonstrate how
+enumeration and exploitation findings can be translated into actionable,
+enterprise-relevant security improvements.
