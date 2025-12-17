@@ -1,23 +1,34 @@
-## Phase 1 – Host Discovery & Enumeration
+## Phase 1 – Host Discovery
 
 An internal network scan identified a Linux host exposing multiple network
-services. A targeted service and version enumeration scan was conducted to
-identify potential attack surface.
+services. The system was selected as the primary assessment target based on
+scope and accessibility within the internal network segment.
 
-### Key Findings
-The target system exposes numerous legacy and insecure services, including FTP,
-SMB, RPC, remote shell services, database services, and remote desktop protocols.
-Several of these services are known to be high-risk when improperly configured
-or running outdated versions.
+---
 
-## Phase 2 – FTP Enumeration (Port 21)
+## Phase 2 – Service Enumeration
+
+### Overview
+Service and version enumeration revealed numerous legacy and insecure services,
+including FTP, SMB, RPC, remote shell services, database services, and remote
+desktop protocols. Several of these services are known to present high risk
+when improperly configured or running outdated versions.
+
+---
+
+### FTP Enumeration (Port 21)
 
 An FTP service was identified as exposed on the target host during service
 enumeration. Further analysis was conducted to assess authentication
-requirements and potential misconfigurations.
+requirements and access controls.
 
-### Findings
-The FTP service permitted unauthenticated (anonymous) access, allowing users to
-connect without valid credentials. This configuration increases the risk of
-unauthorized file access, information disclosure, and potential abuse of the
-service for lateral movement or payload staging within an internal network.
+#### Findings
+The FTP service was identified as **vsFTPd version 2.3.4** and permitted
+unauthenticated (anonymous) access. Unauthenticated users were able to
+successfully log in and enumerate directory listings on the target system.
+
+This configuration increases the risk of information disclosure and may provide
+attackers with insight into system structure or sensitive data. Anonymous FTP
+access may also be abused as a staging point for further attacks within an
+internal network.
+
