@@ -32,3 +32,14 @@ attackers with insight into system structure or sensitive data. Anonymous FTP
 access may also be abused as a staging point for further attacks within an
 internal network.
 
+### NFS Enumeration (Port 2049)
+
+An NFS service was identified as exposed on the target host. Enumeration was
+performed to identify any exported directories accessible over the network.
+
+#### Findings
+Although the NFS service was running and accessible on port 2049, no exported
+directories were listed during enumeration. This indicates that the service is
+either restricted to specific hosts or not actively exporting filesystem paths.
+While no immediate filesystem exposure was identified, the presence of an
+unnecessary network service increases the overall attack surface.
