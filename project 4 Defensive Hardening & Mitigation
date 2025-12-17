@@ -14,3 +14,24 @@ Key risks included:
 These weaknesses collectively enabled unauthorized access and, in one case,
 direct remote command execution with root-level privileges.
 
+## Phase 2 – Mitigation Strategy
+
+Mitigation efforts were designed to directly address the risks identified during
+reconnaissance and controlled exploitation activities. The primary objective was
+to reduce attack surface, eliminate unauthenticated access paths, and align
+system configuration with industry-recognized security best practices.
+
+Mitigation priorities were established using a risk-based approach, focusing on
+services that permitted unauthenticated access or enabled remote command
+execution. Controls were selected to provide immediate risk reduction while
+remaining feasible within an enterprise environment.
+
+The following mitigation principles guided remediation efforts:
+- Disable or remove unnecessary and legacy services
+- Enforce strong authentication and access controls
+- Restrict network exposure through service hardening and firewall rules
+- Align remediation actions with CIS Benchmarks and the NIST Cybersecurity
+  Framework (CSF)
+
+Mitigation actions were categorized into service-level hardening, network-level
+controls, and administrative safeguards to ensure layered defense.
