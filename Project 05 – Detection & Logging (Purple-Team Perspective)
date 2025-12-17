@@ -1,1 +1,168 @@
+## Phase 1 – Observable Attacker Activity
+
+During prior assessment activities, several actions were performed that would
+generate detectable artifacts within host and network logs. These actions
+included network reconnaissance, service enumeration, and a controlled
+exploitation of a vulnerable FTP service.
+
+Observable attacker behaviors included:
+- Network scanning and service discovery
+- Anonymous authentication attempts against SMB and FTP services
+- Manual interaction with an FTP service to trigger a known backdoor condition
+- Remote command execution resulting in a root-level shell
+
+These activities represent common attacker behaviors that defenders can
+monitor for using standard logging and monitoring controls.
+
+## Phase 2 – Host-Based Detection Opportunities
+
+Host-based logging provides critical visibility into authentication events,
+service interactions, and process execution occurring on the target system.
+The activities performed during reconnaissance and exploitation would generate
+multiple detectable artifacts at the operating system and application level.
+
+---
+
+### Authentication & Service Logs
+
+Anonymous authentication attempts against FTP and SMB services would be recorded
+within service-specific and system authentication logs. These events may include
+failed or unusual login attempts, anonymous session creation, and service
+connection metadata.
+
+Relevant log sources include:
+- FTP service logs (vsFTPd authentication and session logs)
+- System authentication logs (e.g., `/var/log/auth.log`)
+- SMB authentication and access logs
+
+Repeated anonymous access or authentication attempts originating from a single
+host would represent a strong indicator of reconnaissance or unauthorized access
+activity.
+
+---
+
+### Process Execution & Privilege Events
+
+The successful exploitation of the FTP service resulted in remote command
+execution with root-level privileges. This activity would generate host-level
+artifacts related to unexpected process creation and privilege context changes.
+
+Relevant indicators include:
+- Unexpected shell processes spawned by network-facing services
+- Commands executed under elevated (root) privileges
+- Process trees originating from FTP service contexts
+
+Host-based monitoring solutions could detect these anomalies by correlating
+process execution with service activity.
+
+---
+
+### File System & Configuration Monitoring
+
+Although no persistence or file modification was performed during exploitation,
+file integrity monitoring could detect unauthorized changes if an attacker
+attempted to modify system files, binaries, or configuration data following
+initial access.
+
+Monitoring sensitive directories and configuration files would provide early
+warning of post-exploitation activity.
+
+---
+
+### Defensive Value
+
+Host-based detection enables defenders to identify suspicious authentication
+patterns, abnormal process execution, and privilege escalation events. When
+combined with proper alerting, these controls can significantly reduce attacker
+dwell time and support rapid incident response.
+
+## Phase 3 – Network-Based Detection Opportunities
+
+Network-based monitoring provides visibility into traffic patterns, service
+exposure, and anomalous connections that may indicate reconnaissance or active
+exploitation. The activities performed during enumeration and controlled
+exploitation would generate multiple observable network indicators.
+
+---
+
+### Network Reconnaissance & Scanning Activity
+
+Initial reconnaissance involved active scanning and service enumeration across
+the internal network. These actions would produce identifiable network patterns,
+including sequential port scanning and repeated connection attempts across
+multiple services.
+
+Relevant detection opportunities include:
+- Intrusion Detection Systems (IDS) flagging port scans or service probes
+- NetFlow or traffic analysis showing abnormal connection frequency
+- Firewall logs indicating repeated connection attempts from a single source
+
+Such activity often represents early-stage attacker behavior and can be used as
+a trigger for further investigation.
+
+---
+
+### Service Interaction & Authentication Traffic
+
+Enumeration and exploitation of FTP and SMB services would generate observable
+traffic at the network layer, including anonymous authentication attempts and
+unexpected protocol usage.
+
+Indicators may include:
+- FTP login attempts using anonymous or malformed credentials
+- SMB connections without authentication
+- Repeated connections to legacy or high-risk services
+
+Network monitoring tools can identify these behaviors by correlating protocol
+usage with expected baselines.
+
+---
+
+### Backdoor Port & Anomalous Connections
+
+The vsFTPd backdoor exploitation resulted in the spawning of a shell listening
+on an atypical port (TCP 6200). Any inbound connection to this port would
+represent a strong indicator of compromise.
+
+Relevant detection opportunities include:
+- Firewall or IDS alerts for connections to non-standard or unexpected ports
+- Network traffic originating from FTP services to high-numbered ports
+- Unusual session behavior inconsistent with normal service operation
+
+Detection of such anomalous connections could enable rapid identification of
+active exploitation.
+
+---
+
+### Defensive Value
+
+Network-based detection complements host-based logging by providing early
+visibility into scanning activity, unauthorized service interactions, and
+unexpected network connections. When combined with host-level telemetry, these
+controls enable defenders to identify attacks earlier in the kill chain and
+reduce overall impact.
+
+## Phase 4 – Detection Summary & Defensive Value
+
+This project demonstrated how attacker behaviors observed during reconnaissance,
+enumeration, and controlled exploitation can be detected using standard host-based
+and network-based monitoring controls.
+
+Host-level telemetry provides visibility into suspicious authentication events,
+unexpected process execution, and privilege escalation attempts. Network-level
+monitoring complements this by identifying scanning activity, anomalous service
+interactions, and connections to non-standard ports indicative of active
+exploitation.
+
+The combination of host-based and network-based detection enables defenders to
+identify malicious activity at multiple stages of the attack lifecycle, from
+initial discovery through exploitation. Early detection of reconnaissance
+activity provides an opportunity to intervene before compromise occurs, while
+monitoring for exploitation artifacts enables rapid incident response when
+preventive controls fail.
+
+Collectively, these detection strategies demonstrate how offensive techniques
+can be leveraged to improve defensive visibility. By understanding how attacks
+manifest in logs and network traffic, security teams can enhance monitoring,
+reduce attacker dwell time, and strengthen overall security posture.
 
