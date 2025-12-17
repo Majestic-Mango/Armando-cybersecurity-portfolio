@@ -1,1 +1,16 @@
+## Phase 1 – Identified Risks
+
+Previous assessment activities identified multiple insecure and legacy service
+configurations that significantly increased the attack surface of the target
+system.
+
+Key risks included:
+- Anonymous access permitted on FTP services
+- Outdated and vulnerable FTP service (vsFTPd 2.3.4)
+- Anonymous SMB access exposing internal shares
+- Unnecessary network services increasing overall exposure
+- Lack of service-level access controls and authentication enforcement
+
+These weaknesses collectively enabled unauthorized access and, in one case,
+direct remote command execution with root-level privileges.
 
